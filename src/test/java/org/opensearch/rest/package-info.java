@@ -18,4 +18,4 @@
 /**
  * Classes used for testing.
  */
-package org.elasticsearch.rest;
+package org.opensearch.rest;

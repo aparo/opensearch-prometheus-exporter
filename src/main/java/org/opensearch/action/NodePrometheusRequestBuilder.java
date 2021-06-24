@@ -15,7 +15,17 @@
  *
  */
 
+package org.opensearch.action;
+
+import org.opensearch.action.support.master.MasterNodeReadOperationRequestBuilder;
+import org.opensearch.client.OpenSearchClient;
+
 /**
- * Classes used for Prometheus Exporter plugin REST actions.
+ * Request builder class for Prometheus Exporter plugin.
  */
-package org.elasticsearch.rest.prometheus;
+public class NodePrometheusRequestBuilder extends MasterNodeReadOperationRequestBuilder<NodePrometheusMetricsRequest,
+        NodePrometheusMetricsResponse, NodePrometheusRequestBuilder> {
+    public NodePrometheusRequestBuilder(OpenSearchClient client, NodePrometheusMetricsAction action) {
+        super(client, action, new NodePrometheusMetricsRequest().local(true));
+    }
+}

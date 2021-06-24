@@ -15,24 +15,24 @@
  *
  */
 
-package org.elasticsearch.rest.prometheus;
+package org.opensearch.rest.prometheus;
 
-import static org.elasticsearch.action.NodePrometheusMetricsAction.INSTANCE;
-import static org.elasticsearch.rest.RestRequest.Method.GET;
+import static org.opensearch.action.NodePrometheusMetricsAction.INSTANCE;
+import static org.opensearch.rest.RestRequest.Method.GET;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.compuscene.metrics.prometheus.PrometheusMetricsCatalog;
 import org.compuscene.metrics.prometheus.PrometheusMetricsCollector;
 import org.compuscene.metrics.prometheus.PrometheusSettings;
-import org.elasticsearch.action.NodePrometheusMetricsRequest;
-import org.elasticsearch.action.NodePrometheusMetricsResponse;
-import org.elasticsearch.client.node.NodeClient;
-import org.elasticsearch.common.network.NetworkAddress;
-import org.elasticsearch.common.settings.ClusterSettings;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.rest.*;
-import org.elasticsearch.rest.action.RestResponseListener;
+import org.opensearch.action.NodePrometheusMetricsRequest;
+import org.opensearch.action.NodePrometheusMetricsResponse;
+import org.opensearch.client.node.NodeClient;
+import org.opensearch.common.network.NetworkAddress;
+import org.opensearch.common.settings.ClusterSettings;
+import org.opensearch.common.settings.Settings;
+import org.opensearch.rest.*;
+import org.opensearch.rest.action.RestResponseListener;
 
 import java.util.List;
 import java.util.Locale;

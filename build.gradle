@@ -12,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.elasticsearch.gradle:build-tools:${es_version}"
+        classpath "org.opensearch.gradle:build-tools:${es_version}"
         classpath group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
         classpath group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
         classpath group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
@@ -27,9 +27,9 @@ plugins {
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'elasticsearch.esplugin'
-apply plugin: 'elasticsearch.rest-resources'
-apply plugin: 'elasticsearch.testclusters'
+apply plugin: 'opensearch.opensearchplugin'
+apply plugin: 'opensearch.rest-resources'
+apply plugin: 'opensearch.testclusters'
 
 // Uncomment if you want to use: System.out.println("Emergency!");
 // Logs are found in build/testcluster/integTest-*/logs/ folder.
@@ -43,7 +43,7 @@ licenseFile = rootProject.file('LICENSE.txt')
 noticeFile = rootProject.file('NOTICE.txt')
 
 // POM validation can be enabled
-validateElasticPom.enabled = false
+validatePom.enabled = false
 
 // No unit tests in this plugin
 test.enabled = false
@@ -60,7 +60,7 @@ repositories {
 
 ext {
     versions = [
-        "elasticsearch": es_version,
+        "opensearch": es_version,
         "prometheus"   : "0.8.0",
         "log4j"        : "2.11.1",
         "junit"        : "4.12"
@@ -71,14 +71,14 @@ configurations {
     runtime
     releaseJars {
         extendsFrom runtime
-        exclude group: "org.elasticsearch"
+        exclude group: "org.opensearch"
         exclude group: "com.fasterxml.jackson.core", module: "jackson-core"
         exclude group: "org.apache.logging.log4j"
     }
 }
 
 dependencies {
-    api "org.elasticsearch:elasticsearch:${versions.elasticsearch}"
+    api "org.opensearch:opensearch:${versions.opensearch}"
     api "io.prometheus:simpleclient:${versions.prometheus}"
     api "io.prometheus:simpleclient_common:${versions.prometheus}"
     api "org.apache.logging.log4j:log4j-api:${versions.log4j}"
@@ -92,7 +92,7 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:unchecked,deprecation"
 }
 
-esplugin {
+opensearchplugin {
     licenseFile rootProject.file('LICENSE.txt')
     noticeFile rootProject.file('NOTICE.txt')
     name pluginName

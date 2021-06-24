@@ -21,3 +21,5 @@ gradle-wrapper.properties
 
 # Mac
 .DS_Store
+.metals/
+.vscode/

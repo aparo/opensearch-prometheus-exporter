@@ -14,29 +14,24 @@
  * limitations under the License.
  *
  */
+package org.opensearch.action.admin.indices.stats;
 
-package org.elasticsearch.action;
-
-import org.elasticsearch.action.support.master.MasterNodeReadRequest;
-import org.elasticsearch.common.io.stream.StreamInput;
+import org.opensearch.common.io.stream.StreamInput;
 
 import java.io.IOException;
 
 /**
- * Action request class for Prometheus Exporter plugin.
+ * Utility methods.
  */
-public class NodePrometheusMetricsRequest extends MasterNodeReadRequest<NodePrometheusMetricsRequest> {
+public class PackageAccessHelper {
 
-    public NodePrometheusMetricsRequest() {
-        super();
-    }
-
-    public NodePrometheusMetricsRequest(StreamInput in) throws IOException {
-        super(in);
-    }
-
-    @Override
-    public ActionRequestValidationException validate() {
-        return null;
+    /**
+     * Shortcut to IndicesStatsResponse constructor which has package access restriction.
+     * @param in StreamInput
+     * @return IndicesStatsResponse
+     * @throws IOException When something goes wrong
+     */
+    public static IndicesStatsResponse createIndicesStatsResponse(StreamInput in) throws IOException {
+        return in.readOptionalWriteable(IndicesStatsResponse::new);
     }
 }

@@ -16,6 +16,6 @@
  */
 
 /**
- * Classes used for Prometheus Exporter plugin transport actions.
+ * Classes used for Prometheus Exporter plugin REST actions.
  */
-package org.elasticsearch.action;
+package org.opensearch.rest.prometheus;

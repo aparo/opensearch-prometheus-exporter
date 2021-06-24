@@ -15,25 +15,25 @@
  *
  */
 
-package org.elasticsearch.plugin.prometheus;
+package org.opensearch.plugin.prometheus;
 
 import static java.util.Collections.singletonList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.compuscene.metrics.prometheus.PrometheusSettings;
-import org.elasticsearch.action.ActionRequest;
-import org.elasticsearch.action.ActionResponse;
-import org.elasticsearch.action.NodePrometheusMetricsAction;
-import org.elasticsearch.action.TransportNodePrometheusMetricsAction;
-import org.elasticsearch.cluster.metadata.IndexNameExpressionResolver;
-import org.elasticsearch.cluster.node.DiscoveryNodes;
-import org.elasticsearch.common.settings.*;
-import org.elasticsearch.plugins.ActionPlugin;
-import org.elasticsearch.plugins.Plugin;
-import org.elasticsearch.rest.RestController;
-import org.elasticsearch.rest.RestHandler;
-import org.elasticsearch.rest.prometheus.RestPrometheusMetricsAction;
+import org.opensearch.action.ActionRequest;
+import org.opensearch.action.ActionResponse;
+import org.opensearch.action.NodePrometheusMetricsAction;
+import org.opensearch.action.TransportNodePrometheusMetricsAction;
+import org.opensearch.cluster.metadata.IndexNameExpressionResolver;
+import org.opensearch.cluster.node.DiscoveryNodes;
+import org.opensearch.common.settings.*;
+import org.opensearch.plugins.ActionPlugin;
+import org.opensearch.plugins.Plugin;
+import org.opensearch.rest.RestController;
+import org.opensearch.rest.RestHandler;
+import org.opensearch.rest.prometheus.RestPrometheusMetricsAction;
 
 import java.util.Arrays;
 import java.util.Collections;

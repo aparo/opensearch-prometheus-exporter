@@ -17,20 +17,20 @@
 
 package org.compuscene.metrics.prometheus;
 
-import org.elasticsearch.common.settings.ClusterSettings;
-import org.elasticsearch.common.settings.Setting;
-import org.elasticsearch.common.settings.Settings;
+import org.opensearch.common.settings.ClusterSettings;
+import org.opensearch.common.settings.Setting;
+import org.opensearch.common.settings.Settings;
 
 /**
  * A container to keep settings for prometheus up to date with cluster setting changes.
  *
  * In order to make the settings dynamically updatable we took some inspiration from implementation
- * and use of DiskThresholdSettings class in Elasticsearch.
+ * and use of DiskThresholdSettings class in OpenSearch.
  */
 public class PrometheusSettings {
 
     // These settings become part of cluster state available via HTTP at
-    // curl <elasticsearch>/_cluster/settings?include_defaults=true&filter_path=defaults.prometheus
+    // curl <opensearch>/_cluster/settings?include_defaults=true&filter_path=defaults.prometheus
     // It is important to keep it under reasonable namespace to avoid collision with
     // other plugins or future/commercial parts of Elastic Stack itself.
     // Namespace "prometheus" sounds like safe bet for now.

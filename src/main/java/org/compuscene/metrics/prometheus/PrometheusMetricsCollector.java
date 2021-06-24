@@ -17,26 +17,26 @@
 
 package org.compuscene.metrics.prometheus;
 
-import org.elasticsearch.action.ClusterStatsData;
-import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
-import org.elasticsearch.action.admin.cluster.node.stats.NodeStats;
-import org.elasticsearch.action.admin.indices.stats.CommonStats;
-import org.elasticsearch.action.admin.indices.stats.IndexStats;
-import org.elasticsearch.action.admin.indices.stats.IndicesStatsResponse;
-import org.elasticsearch.cluster.health.ClusterIndexHealth;
-import org.elasticsearch.cluster.node.DiscoveryNodeRole;
-import org.elasticsearch.http.HttpStats;
-import org.elasticsearch.indices.NodeIndicesStats;
-import org.elasticsearch.indices.breaker.AllCircuitBreakerStats;
-import org.elasticsearch.indices.breaker.CircuitBreakerStats;
-import org.elasticsearch.ingest.IngestStats;
-import org.elasticsearch.monitor.fs.FsInfo;
-import org.elasticsearch.monitor.jvm.JvmStats;
-import org.elasticsearch.monitor.os.OsStats;
-import org.elasticsearch.monitor.process.ProcessStats;
-import org.elasticsearch.script.ScriptStats;
-import org.elasticsearch.threadpool.ThreadPoolStats;
-import org.elasticsearch.transport.TransportStats;
+import org.opensearch.action.ClusterStatsData;
+import org.opensearch.action.admin.cluster.health.ClusterHealthResponse;
+import org.opensearch.action.admin.cluster.node.stats.NodeStats;
+import org.opensearch.action.admin.indices.stats.CommonStats;
+import org.opensearch.action.admin.indices.stats.IndexStats;
+import org.opensearch.action.admin.indices.stats.IndicesStatsResponse;
+import org.opensearch.cluster.health.ClusterIndexHealth;
+import org.opensearch.cluster.node.DiscoveryNodeRole;
+import org.opensearch.http.HttpStats;
+import org.opensearch.indices.NodeIndicesStats;
+import org.opensearch.indices.breaker.AllCircuitBreakerStats;
+import org.opensearch.indices.breaker.CircuitBreakerStats;
+import org.opensearch.ingest.IngestStats;
+import org.opensearch.monitor.fs.FsInfo;
+import org.opensearch.monitor.jvm.JvmStats;
+import org.opensearch.monitor.os.OsStats;
+import org.opensearch.monitor.process.ProcessStats;
+import org.opensearch.script.ScriptStats;
+import org.opensearch.threadpool.ThreadPoolStats;
+import org.opensearch.transport.TransportStats;
 
 import java.util.HashMap;
 import java.util.List;
@@ -130,7 +130,7 @@ public class PrometheusMetricsCollector {
     private void updateNodeMetrics(NodeStats ns) {
         if (ns != null) {
 
-            // Plugins can introduce custom node roles from 7.3.0: https://github.com/elastic/elasticsearch/pull/43175
+            // Plugins can introduce custom node roles from 7.3.0: https://github.com/elastic/opensearch/pull/43175
             // TODO(lukas-vlcek): List of node roles can not be static but needs to be created dynamically.
             Map<String, Integer> roles = new HashMap<>();
 
@@ -413,7 +413,7 @@ public class PrometheusMetricsCollector {
         catalog.registerClusterGauge("index_fielddata_evictions_count", "Count of evictions in field data cache", "index", "context");
 
         // Percolator cache was removed in ES 5.x
-        // See https://github.com/elastic/elasticsearch/commit/80fee8666ff5dd61ba29b175857cf42ce3b9eab9
+        // See https://github.com/elastic/opensearch/commit/80fee8666ff5dd61ba29b175857cf42ce3b9eab9
 
         catalog.registerClusterGauge("index_completion_size_bytes", "Size of completion suggest statistics", "index", "context");
 
@@ -530,7 +530,7 @@ public class PrometheusMetricsCollector {
         catalog.setClusterGauge("index_fielddata_evictions_count", idx.getFieldData().getEvictions(), indexName, context);
 
         // Percolator cache was removed in ES 5.x
-        // See https://github.com/elastic/elasticsearch/commit/80fee8666ff5dd61ba29b175857cf42ce3b9eab9
+        // See https://github.com/elastic/opensearch/commit/80fee8666ff5dd61ba29b175857cf42ce3b9eab9
 
         catalog.setClusterGauge("index_completion_size_bytes", idx.getCompletion().getSizeInBytes(), indexName, context);
 
@@ -902,8 +902,8 @@ public class PrometheusMetricsCollector {
     private void updateESSettings(ClusterStatsData stats) {
         if (stats != null) {
             catalog.setClusterGauge("cluster_routing_allocation_disk_threshold_enabled", Boolean.TRUE.equals(stats.getThresholdEnabled()) ? 1 : 0);
-            // According to Elasticsearch documentation the following settings must be set either in pct or bytes size.
-            // Mixing is not allowed. We rely on Elasticsearch to do all necessary checks and we simply
+            // According to OpenSearch documentation the following settings must be set either in pct or bytes size.
+            // Mixing is not allowed. We rely on OpenSearch to do all necessary checks and we simply
             // output all those metrics that are not null. If this will lead to mixed metric then we do not
             // consider it our fault.
             if (stats.getDiskLowInBytes() != null) { catalog.setClusterGauge("cluster_routing_allocation_disk_watermark_low_bytes", stats.getDiskLowInBytes()); }

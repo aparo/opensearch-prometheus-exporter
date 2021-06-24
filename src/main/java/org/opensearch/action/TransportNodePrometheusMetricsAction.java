@@ -15,30 +15,30 @@
  *
  */
 
-package org.elasticsearch.action;
+package org.opensearch.action;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.compuscene.metrics.prometheus.PrometheusSettings;
-import org.elasticsearch.ElasticsearchException;
-import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequest;
-import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
-import org.elasticsearch.action.admin.cluster.node.stats.NodesStatsRequest;
-import org.elasticsearch.action.admin.cluster.node.stats.NodesStatsResponse;
-import org.elasticsearch.action.admin.cluster.state.ClusterStateRequest;
-import org.elasticsearch.action.admin.cluster.state.ClusterStateResponse;
-import org.elasticsearch.action.admin.indices.stats.IndicesStatsRequest;
-import org.elasticsearch.action.admin.indices.stats.IndicesStatsResponse;
-import org.elasticsearch.action.support.ActionFilters;
-import org.elasticsearch.action.support.HandledTransportAction;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.Requests;
-import org.elasticsearch.common.Nullable;
-import org.elasticsearch.common.inject.Inject;
-import org.elasticsearch.common.settings.ClusterSettings;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.tasks.Task;
-import org.elasticsearch.transport.TransportService;
+import org.opensearch.OpenSearchException;
+import org.opensearch.action.admin.cluster.health.ClusterHealthRequest;
+import org.opensearch.action.admin.cluster.health.ClusterHealthResponse;
+import org.opensearch.action.admin.cluster.node.stats.NodesStatsRequest;
+import org.opensearch.action.admin.cluster.node.stats.NodesStatsResponse;
+import org.opensearch.action.admin.cluster.state.ClusterStateRequest;
+import org.opensearch.action.admin.cluster.state.ClusterStateResponse;
+import org.opensearch.action.admin.indices.stats.IndicesStatsRequest;
+import org.opensearch.action.admin.indices.stats.IndicesStatsResponse;
+import org.opensearch.action.support.ActionFilters;
+import org.opensearch.action.support.HandledTransportAction;
+import org.opensearch.client.Client;
+import org.opensearch.client.Requests;
+import org.opensearch.common.Nullable;
+import org.opensearch.common.inject.Inject;
+import org.opensearch.common.settings.ClusterSettings;
+import org.opensearch.common.settings.Settings;
+import org.opensearch.tasks.Task;
+import org.opensearch.transport.TransportService;
 
 /**
  * Transport action class for Prometheus Exporter plugin.
@@ -107,7 +107,7 @@ public class TransportNodePrometheusMetricsAction extends HandledTransportAction
             // Note: when using ClusterHealthRequest in Java, it pulls data at the shards level, according to ES source
             // code comment this is "so it is backward compatible with the transport client behaviour".
             // hence we are explicit about ClusterHealthRequest level and do not rely on defaults.
-            // https://www.elastic.co/guide/en/elasticsearch/reference/6.4/cluster-health.html#request-params
+            // https://www.elastic.co/guide/en/opensearch/reference/6.4/cluster-health.html#request-params
             this.healthRequest = Requests.clusterHealthRequest().local(true);
             this.healthRequest.level(ClusterHealthRequest.Level.SHARDS);
 
@@ -117,7 +117,7 @@ public class TransportNodePrometheusMetricsAction extends HandledTransportAction
             // it is broad-casted to all cluster nodes.
             this.indicesStatsRequest = isPrometheusIndices ? new IndicesStatsRequest() : null;
 
-            // Cluster settings are get via ClusterStateRequest (see elasticsearch RestClusterGetSettingsAction for details)
+            // Cluster settings are get via ClusterStateRequest (see opensearch RestClusterGetSettingsAction for details)
             // We prefer to send it to master node (hence local=false; it should be set by default but we want to be sure).
             this.clusterStateRequest = isPrometheusClusterSettings ? Requests.clusterStateRequest()
                     .clear().metadata(true).local(false) : null;
@@ -138,7 +138,7 @@ public class TransportNodePrometheusMetricsAction extends HandledTransportAction
 
                 @Override
                 public void onFailure(Exception e) {
-                    listener.onFailure(new ElasticsearchException("Cluster state request failed", e));
+                    listener.onFailure(new OpenSearchException("Cluster state request failed", e));
                 }
             };
 
@@ -156,7 +156,7 @@ public class TransportNodePrometheusMetricsAction extends HandledTransportAction
 
                 @Override
                 public void onFailure(Exception e) {
-                    listener.onFailure(new ElasticsearchException("Indices stats request failed", e));
+                    listener.onFailure(new OpenSearchException("Indices stats request failed", e));
                 }
             };
 
@@ -174,7 +174,7 @@ public class TransportNodePrometheusMetricsAction extends HandledTransportAction
 
                 @Override
                 public void onFailure(Exception e) {
-                    listener.onFailure(new ElasticsearchException("Nodes stats request failed", e));
+                    listener.onFailure(new OpenSearchException("Nodes stats request failed", e));
                 }
             };
 
@@ -188,7 +188,7 @@ public class TransportNodePrometheusMetricsAction extends HandledTransportAction
 
                 @Override
                 public void onFailure(Exception e) {
-                    listener.onFailure(new ElasticsearchException("Cluster health request failed", e));
+                    listener.onFailure(new OpenSearchException("Cluster health request failed", e));
                 }
             };
 

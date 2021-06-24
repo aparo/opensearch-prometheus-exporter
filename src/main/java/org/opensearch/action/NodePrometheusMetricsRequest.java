@@ -14,17 +14,29 @@
  * limitations under the License.
  *
  */
-package org.elasticsearch.action;
+
+package org.opensearch.action;
+
+import org.opensearch.action.support.master.MasterNodeReadRequest;
+import org.opensearch.common.io.stream.StreamInput;
+
+import java.io.IOException;
 
 /**
- * Action class for Prometheus Exporter plugin.
+ * Action request class for Prometheus Exporter plugin.
  */
-public class NodePrometheusMetricsAction extends ActionType<NodePrometheusMetricsResponse> {
+public class NodePrometheusMetricsRequest extends MasterNodeReadRequest<NodePrometheusMetricsRequest> {
 
-    public static final NodePrometheusMetricsAction INSTANCE = new NodePrometheusMetricsAction();
-    public static final String NAME = "cluster:monitor/prometheus/metrics";
+    public NodePrometheusMetricsRequest() {
+        super();
+    }
 
-    private NodePrometheusMetricsAction() {
-        super(NAME,  NodePrometheusMetricsResponse::new);
+    public NodePrometheusMetricsRequest(StreamInput in) throws IOException {
+        super(in);
+    }
+
+    @Override
+    public ActionRequestValidationException validate() {
+        return null;
     }
 }

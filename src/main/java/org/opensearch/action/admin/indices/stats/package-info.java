@@ -16,6 +16,6 @@
  */
 
 /**
- * Prometheus Exporter plugin main classes.
+ * Utility classes.
  */
-package org.elasticsearch.plugin.prometheus;
+package org.opensearch.action.admin.indices.stats;

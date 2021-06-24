@@ -14,32 +14,32 @@
  * limitations under the License.
  *
  */
-package org.elasticsearch.action;
+package org.opensearch.action;
 
-import static org.elasticsearch.cluster.routing.allocation.DiskThresholdSettings.*;
+import static org.opensearch.cluster.routing.allocation.DiskThresholdSettings.*;
 
-import org.elasticsearch.ElasticsearchParseException;
-import org.elasticsearch.action.admin.cluster.state.ClusterStateResponse;
-import org.elasticsearch.cluster.metadata.Metadata;
-import org.elasticsearch.common.Nullable;
-import org.elasticsearch.common.io.stream.StreamInput;
-import org.elasticsearch.common.io.stream.StreamOutput;
-import org.elasticsearch.common.settings.ClusterSettings;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.settings.SettingsException;
-import org.elasticsearch.common.unit.RatioValue;
+import org.opensearch.OpenSearchParseException;
+import org.opensearch.action.admin.cluster.state.ClusterStateResponse;
+import org.opensearch.cluster.metadata.Metadata;
+import org.opensearch.common.Nullable;
+import org.opensearch.common.io.stream.StreamInput;
+import org.opensearch.common.io.stream.StreamOutput;
+import org.opensearch.common.settings.ClusterSettings;
+import org.opensearch.common.settings.Settings;
+import org.opensearch.common.settings.SettingsException;
+import org.opensearch.common.unit.RatioValue;
 
 import java.io.IOException;
 
 
 /**
- * Selected settings from Elasticsearch cluster settings.
+ * Selected settings from OpenSearch cluster settings.
  *
- * Disk-based shard allocation [1] settings play important role in how Elasticsearch decides where to allocate
+ * Disk-based shard allocation [1] settings play important role in how OpenSearch decides where to allocate
  * new shards or if existing shards are relocated to different nodes. The tricky part about these settings is
  * that they can be expressed either in percent or bytes value (they cannot be mixed) and they can be updated on the fly.
  *
- * [1] https://www.elastic.co/guide/en/elasticsearch/reference/master/disk-allocator.html#disk-allocator
+ * [1] https://www.elastic.co/guide/en/opensearch/reference/master/disk-allocator.html#disk-allocator
  *
  * In order to make it easy for Prometheus to consume the data we expose these settings in both formats (pct and bytes)
  * and we do our best in determining if they are currently set as pct or bytes filling appropriate variables with data
@@ -83,12 +83,12 @@ public class ClusterStatsData extends ActionResponse {
     ClusterStatsData(ClusterStateResponse clusterStateResponse, Settings settings, ClusterSettings clusterSettings) {
 
         Metadata m = clusterStateResponse.getState().getMetadata();
-        // There are several layers of cluster settings in Elasticsearch each having different priority.
+        // There are several layers of cluster settings in OpenSearch each having different priority.
         // We need to traverse them from the top priority down to find relevant value of each setting.
-        // See https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html#_order_of_precedence
+        // See https://www.elastic.co/guide/en/opensearch/reference/master/cluster-update-settings.html#_order_of_precedence
         for (Settings s : new Settings[]{
                 // See: RestClusterGetSettingsAction#response
-                // or: https://github.com/elastic/elasticsearch/pull/33247/files
+                // or: https://github.com/elastic/opensearch/pull/33247/files
                 // We do not filter the settings, but we use the clusterSettings.diff()
                 // In the end we expose just a few selected settings ATM.
                 m.transientSettings(),
@@ -116,7 +116,7 @@ public class ClusterStatsData extends ActionResponse {
      * Try to extract and parse value from settings for given key.
      * First it tries to parse it as a RatioValue (pct) then as byte size value.
      * It assigns parsed value to corresponding argument references (passed via array hack).
-     * If parsing fails the method fires exception, however, this should not happen - we rely on Elasticsearch
+     * If parsing fails the method fires exception, however, this should not happen - we rely on OpenSearch
      * to already have parsed and validated these values before. Unless we screwed something up...
      */
     private void parseValue(Settings s, String key, Long[] bytesPointer, Double[] pctPointer) {
@@ -124,11 +124,11 @@ public class ClusterStatsData extends ActionResponse {
         if (value != null && pctPointer[0] == null) {
             try {
                 pctPointer[0] = RatioValue.parseRatioValue(s.get(key, null)).getAsPercent();
-            } catch (SettingsException | ElasticsearchParseException | NullPointerException e1) {
+            } catch (SettingsException | OpenSearchParseException | NullPointerException e1) {
                 if (bytesPointer[0] == null) {
                     try {
                         bytesPointer[0] = s.getAsBytesSize(key, null).getBytes();
-                    } catch (SettingsException | ElasticsearchParseException | NullPointerException e2) {
+                    } catch (SettingsException | OpenSearchParseException | NullPointerException e2) {
                         // TODO(lvlcek): log.debug("This went wrong, but 'Keep Calm and Carry On'")
                         // We should avoid using logs in this class (due to perf impact), instead we should
                         // consider moving this logic to some static helper class/method going forward.

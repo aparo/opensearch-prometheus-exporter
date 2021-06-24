@@ -15,17 +15,17 @@
  *
  */
 
-package org.elasticsearch.rest;
+package org.opensearch.rest;
 
 import com.carrotsearch.randomizedtesting.annotations.Name;
 import com.carrotsearch.randomizedtesting.annotations.ParametersFactory;
-import org.elasticsearch.test.rest.yaml.ClientYamlTestCandidate;
-import org.elasticsearch.test.rest.yaml.ESClientYamlSuiteTestCase;
+import org.opensearch.test.rest.yaml.ClientYamlTestCandidate;
+import org.opensearch.test.rest.yaml.OpenSearchClientYamlSuiteTestCase;
 
 /**
- * Needed class to enable esplugin rest api tests.
+ * Needed class to enable opensearchplugin rest api tests.
  */
-public class PrometheusRestHandlerClientYamlTestSuiteIT extends ESClientYamlSuiteTestCase {
+public class PrometheusRestHandlerClientYamlTestSuiteIT extends OpenSearchClientYamlSuiteTestCase {
 
     public PrometheusRestHandlerClientYamlTestSuiteIT(@Name("yaml") ClientYamlTestCandidate testCandidate) {
         super(testCandidate);
@@ -33,6 +33,6 @@ public class PrometheusRestHandlerClientYamlTestSuiteIT extends ESClientYamlSuit
 
     @ParametersFactory
     public static Iterable<Object[]> parameters() throws Exception {
-        return ESClientYamlSuiteTestCase.createParameters();
+        return OpenSearchClientYamlSuiteTestCase.createParameters();
     }
 }
