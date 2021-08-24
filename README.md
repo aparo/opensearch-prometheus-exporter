@@ -25,7 +25,7 @@ It collects all relevant metrics and makes them available to Prometheus via the 
 
 | OpenSearch  | Plugin         | Release date |
 | ----------- | -------------- | ------------ |
-| 1.0.0-RC1   | 1.0.0-RC1      | Jun 24, 2021 |
+| 1.0.0       | 1.0.0          | Jun 24, 2021 |
 
 ## Install
 
