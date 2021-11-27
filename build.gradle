@@ -1,4 +1,5 @@
 import com.github.mgk.gradle.*
+import java.nio.file.Files
 
 buildscript {
     ext {
@@ -22,6 +23,9 @@ buildscript {
 }
 
 plugins {
+  id "co.riiid.gradle" version "0.4.2"
+  // the old co.riiid.gradle is not gradle 7.0 compatible
+  // id "com.github.humblerookie.gradle" version "0.4.4"
     id "java"
     id "checkstyle"
 }
@@ -76,6 +80,30 @@ configurations {
         exclude group: "com.fasterxml.jackson.core", module: "jackson-core"
         exclude group: "org.apache.logging.log4j"
     }
+}
+
+githubRelease.doFirst {
+  if (!System.getProperty('GITHUB_TOKEN', '')) {
+    throw new Exception('Missing property GITHUB_TOKEN')
+  }
+
+  // check if zip file is there
+  assert file("build/distributions/prometheus-exporter-${version}.zip").exists()
+
+  // rename zip file
+  def currentVersion = version.replace('-SNAPSHOT', '')
+  def filename = "build/distributions/prometheus-exporter-${currentVersion}.zip"
+  Files.copy(file("build/distributions/prometheus-exporter-${version}.zip").toPath(), file(filename).toPath())
+
+  // configuration
+  github {
+    owner = 'aparo'
+    repo = 'opensearch-prometheus-exporter'
+    token = System.getProperty('GITHUB_TOKEN')
+    tagName = currentVersion
+    assets = [ filename ]
+    targetCommitish = 'main'
+  }
 }
 
 dependencies {
