@@ -34,11 +34,11 @@ import org.opensearch.common.settings.Settings;
 import org.opensearch.rest.*;
 import org.opensearch.rest.action.RestResponseListener;
 
+import static java.util.Arrays.asList;
 import java.util.List;
+import static java.util.Collections.unmodifiableList;
 import java.util.Locale;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
 
 /**
  * REST action class for Prometheus Exporter plugin.
