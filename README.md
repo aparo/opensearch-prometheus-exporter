@@ -29,10 +29,11 @@ It collects all relevant metrics and makes them available to Prometheus via the 
 | 1.1.0       | 1.1.0          | Oct 08, 2021 |
 | 1.2.0       | 1.2.0          | Nov 27, 2021 |
 | 1.2.2       | 1.2.2          | Dec 19, 2021 |
+| 1.2.3       | 1.2.3          | Dec 24, 2021 |
 
 ## Install
 
-`./bin/opensearch-plugin install -b https://github.com/aparo/opensearch-prometheus-exporter/releases/download/1.2.2/prometheus-exporter-1.2.2.zip`
+`./bin/opensearch-plugin install -b https://github.com/aparo/opensearch-prometheus-exporter/releases/download/1.2.3/prometheus-exporter-1.2.3.zip`
 
 **Do not forget to restart the node after the installation!**
 
