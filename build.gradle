@@ -67,7 +67,7 @@ ext {
     versions = [
         "opensearch": es_version,
         "prometheus"   : "0.8.0",
-        "log4j"        : "2.16.0",
+        "log4j"        : "2.17.0",
         "junit"        : "4.12"
     ]
 }
