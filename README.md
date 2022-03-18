@@ -30,6 +30,8 @@ It collects all relevant metrics and makes them available to Prometheus via the 
 | 1.2.0       | 1.2.0          | Nov 27, 2021 |
 | 1.2.2       | 1.2.2          | Dec 19, 2021 |
 | 1.2.3       | 1.2.3          | Dec 24, 2021 |
+| 1.2.4       | 1.2.4          | Jan 30, 2022 |
+| 1.3.0       | 1.3.0          | Unreleased   |
 
 ## Install
 
