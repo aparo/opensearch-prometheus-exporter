@@ -10,7 +10,8 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://aws.oss.sonatype.org/content/repositories/snapshots" }
     }
 
     dependencies {
@@ -66,7 +67,7 @@ repositories {
 ext {
     versions = [
         "opensearch": es_version,
-        "prometheus": "0.15.0",
+        "prometheus": "0.8.0",
         "log4j"     : "2.17.1",
         "junit"     : "4.13.2"
     ]
@@ -111,6 +112,7 @@ dependencies {
     api "io.prometheus:simpleclient:${versions.prometheus}"
     api "io.prometheus:simpleclient_common:${versions.prometheus}"
     api "org.apache.logging.log4j:log4j-api:${versions.log4j}"
+    testCompile "org.opensearch.test:framework:${versions.opensearch}"
     testImplementation (group: 'junit', name: 'junit', version: "${versions.junit}") {
         exclude group:'org.hamcrest' //also included in ES test framework
     }
