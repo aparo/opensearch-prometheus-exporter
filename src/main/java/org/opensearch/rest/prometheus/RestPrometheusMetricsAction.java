@@ -35,8 +35,8 @@ import org.opensearch.rest.*;
 import org.opensearch.rest.action.RestResponseListener;
 
 import static java.util.Arrays.asList;
-import java.util.List;
 import static java.util.Collections.unmodifiableList;
+import java.util.List;
 import java.util.Locale;
 
 
