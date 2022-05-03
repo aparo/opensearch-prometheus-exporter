@@ -53,6 +53,12 @@ validatePom.enabled = false
 // No unit tests in this plugin
 test.enabled = false
 
+dependencyLicenses.enabled = false
+loggerUsageCheck.enabled = false
+testingConventions.enabled = false
+thirdPartyAudit.enabled = false
+validateNebulaPom.enabled = false
+
 println "Host: " + java.net.InetAddress.getLocalHost()
 println "Gradle: " + gradle.gradleVersion + " JVM: " + org.gradle.internal.jvm.Jvm.current() + " Groovy: " + GroovySystem.getVersion()
 println "Build: group: '${project.group}', name: '${project.name}', version: '${project.version}'"
@@ -68,7 +74,7 @@ ext {
         "opensearch": es_version,
         "prometheus"   : "0.8.0",
         "log4j"        : "2.17.1",
-        "junit"        : "4.12"
+        "junit"        : "4.13.2"
     ]
 }
 
