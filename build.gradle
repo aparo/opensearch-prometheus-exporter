@@ -68,7 +68,7 @@ ext {
         "opensearch": es_version,
         "prometheus"   : "0.8.0",
         "log4j"        : "2.17.1",
-        "junit"        : "4.12"
+        "junit"        : "4.13.2"
     ]
 }
 
